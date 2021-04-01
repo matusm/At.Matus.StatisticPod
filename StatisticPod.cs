@@ -4,6 +4,7 @@ namespace At.Matus.StatisticPod
 {
     public class StatisticPod
     {
+
         public StatisticPod(string name = noNameSpecified)
         {
             Name = name.Trim();
@@ -15,8 +16,6 @@ namespace At.Matus.StatisticPod
         public string Name { get; }
         public long SampleSize { get; private set; }
         public double AverageValue { get; private set; }
-        public double FirstValue { get; private set; }
-        public double MostRecentValue { get; private set; }
         public double MaximumValue { get; private set; }
         public double MinimumValue { get; private set; }
         public double Range => MaximumValue - MinimumValue;
@@ -31,8 +30,6 @@ namespace At.Matus.StatisticPod
             AverageValue = double.NaN;
             MaximumValue = double.NaN;
             MinimumValue = double.NaN;
-            FirstValue = double.NaN;
-            MostRecentValue = double.NaN;
         }
 
         public void Update(double value)
@@ -42,12 +39,10 @@ namespace At.Matus.StatisticPod
             SampleSize++;
             if (SampleSize == 1)
             {
-                FirstValue = value;
                 AverageValue = value;
                 MaximumValue = value;
                 MinimumValue = value;
             }
-            MostRecentValue = value;
             // https://www.johndcook.com/blog/standard_deviation/
             double oldAverage = AverageValue;
             AverageValue += (value - AverageValue) / SampleSize;

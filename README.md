@@ -55,12 +55,6 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 * `CentralValue`
   Returns the mid-range in the data set. This is the arithmetic mean of the maximum and minimum of all recorded values.
 
-* `FirstValue`
-  Returns the first value recorded following a `Restart()`.
-
-* `MostRecentValue`
-  Returns the most recent value recorded.
-
 * `Name`
   Returns the name string as provided during creation of the object.
 
