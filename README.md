@@ -4,7 +4,7 @@ StatisticPod
 A Simple C# Statistic Library.
 
 ## StatisticPod
-This class provides basic functionality for recording and processing data values. It is typically used for preprocessing and data reduction of frequently arriving sensor data. 
+This class provides basic functionality for processing (disposable) data values on the fly. 
 
 It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) focused on statistic applications. The most important difference is the implementation of variance and standard deviation of the data series. On the other hand time and date related functionality, which is handy for sensor data, is removed in this class.
 
@@ -19,7 +19,7 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 ### Constructor
 
 * `StatisticPod(string)`
-  Creates a new instance of this class taking a name string as the single argument.
+  Creates a new instance of this class taking a name string as the single argument. A generic name is used if no string is provided.
 
 ### Methods
 
@@ -97,7 +97,7 @@ namespace spTest
             Console.WriteLine("Mean value: {0}", sp.AverageValue);
             Console.WriteLine(sp); // ToString() is implemented also
             sp.Restart();
-            // you can now reuse the object sp
+            // you may now reuse the object sp for a new evaluation
         }
     }
 }

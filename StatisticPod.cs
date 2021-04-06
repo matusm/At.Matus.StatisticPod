@@ -46,7 +46,7 @@ namespace At.Matus.StatisticPod
             // https://www.johndcook.com/blog/standard_deviation/
             double oldAverage = AverageValue;
             AverageValue += (value - AverageValue) / SampleSize;
-            squareSum += (value - oldAverage) * (value - AverageValue); // TODO only if (SampleSize != 1) ?
+            squareSum += (value - oldAverage) * (value - AverageValue); // for (SampleSize==1) squareSum=0 
             if (value > MaximumValue) MaximumValue = value;
             if (value < MinimumValue) MinimumValue = value;
         }
