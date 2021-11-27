@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace At.Matus.StatisticPod
 {
@@ -22,6 +23,7 @@ namespace At.Matus.StatisticPod
         public double CentralValue => (MaximumValue + MinimumValue) / 2.0;
         public double Variance => (SampleSize > 1) ? squareSum / (SampleSize - 1) : double.NaN;
         public double StandardDeviation => Math.Sqrt(Variance);
+        public double SquareSum => (SampleSize > 0) ? squareSum : double.NaN;
 
         public void Restart()
         {
@@ -49,6 +51,18 @@ namespace At.Matus.StatisticPod
             squareSum += (value - oldAverage) * (value - AverageValue); // for (SampleSize==1) squareSum=0 
             if (value > MaximumValue) MaximumValue = value;
             if (value < MinimumValue) MinimumValue = value;
+        }
+
+        public void Update(double[] values)
+        {
+            foreach (var value in values)
+                Update(value);
+        }
+
+        public void Update(List<double> values)
+        {
+            foreach (var value in values)
+                Update(value);
         }
 
         public override string ToString()

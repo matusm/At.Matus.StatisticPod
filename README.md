@@ -26,6 +26,12 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 * `Update(double)`
   Records the passed value. By passing `double.NaN` the call is without effect. 
   
+* `Update(double[])`
+  Records all values from the passed array. 
+  
+* `Update(List<double>)`
+  Records all values from the passed list. 
+  
 * `Restart()`
   All data recorded so far is discarded to start over. Typically used after consuming the wanted characteristic values of the recording. `Name` is the only property conserved.
 
@@ -54,6 +60,9 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 
 * `CentralValue`
   Returns the mid-range in the data set. This is the arithmetic mean of the maximum and minimum of all recorded values.
+
+* `SquareSum`
+  Returns the sum of the squared residuals.
 
 * `Name`
   Returns the name string as provided during creation of the object.
