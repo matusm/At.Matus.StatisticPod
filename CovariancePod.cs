@@ -24,6 +24,7 @@ namespace At.Matus.StatisticPod
         public double Covariance => (zPod.Variance - xPod.Variance - yPod.Variance) / 2;
         public double CorrelationCoefficient => Covariance / (xPod.StandardDeviation * yPod.StandardDeviation);
 
+        // to expose all properties of the StatisticPod objects
         public StatisticPod XPod => xPod;
         public StatisticPod YPod => yPod;
 
@@ -37,7 +38,7 @@ namespace At.Matus.StatisticPod
         public void Update(double x, double y)
         {
             if (double.IsNaN(x) || double.IsNaN(y))
-                return; // all three pods are of equal sample size
+                return; // forces all three pods are of equal sample size
             xPod.Update(x);
             yPod.Update(y);
             zPod.Update(x + y);
