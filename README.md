@@ -16,12 +16,19 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 * No additional dependencies
 * Multi-platform (Windows, MacOS, Linux) 
 
-### Constructor
+## Classes
+
+There are two classes in this library, `StatisticPod` and `CovariancePod`.
+
+### StatisticPod Constructors
 
 * `StatisticPod(string)`
-  Creates a new instance of this class taking a name string as the single argument. A generic name is used if no string is provided.
+  Creates a new instance of this class taking a name string as the single argument.
 
-### Methods
+* `StatisticPod()`
+  Creates a new instance of this class using a GUID string as `Name`.
+
+### StatisticPod Methods
 
 * `Update(double)`
   Records the passed value. By passing `double.NaN` the call is without effect. 
@@ -35,7 +42,7 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 * `Restart()`
   All data recorded so far is discarded to start over. Typically used after consuming the wanted characteristic values of the recording. `Name` is the only property conserved.
 
-### Properties
+### StatisticPod Properties
 
 * `SampleSize`
   Returns the number of samples recorded since the last `Restart()`.
@@ -67,18 +74,57 @@ It is a compainon of [DataSeriesPod](https://github.com/matusm/DataSeriesPod) fo
 * `Name`
   Returns the name string as provided during creation of the object.
 
-### Notes
+### CovariancePod Constructors
+
+* `CovariancePod(string)`
+  Creates a new instance of this class taking a name string as the single argument.
+
+* `CovariancePod()`
+  Creates a new instance of this class using a GUID string as `Name`.
+
+### CovariancePod Methods
+
+* `Update(double, double)`
+  Records the passed values. By passing `double.NaN` to any of the two arguments the call is without effect. 
+  
+* `Restart()`
+  All data recorded so far is discarded to start over. Typically used after consuming the wanted characteristic values of the recording. `Name` is the only property conserved.
+
+### CovariancePod Properties
+
+* `SampleSize`
+  Returns the number of samples recorded since the last `Restart()`.
+
+* `AverageValueOfX` and `AverageValueOfY`
+  Returns the arithmetic mean of all values for the respective variable.
+
+* `StandardDeviationOfX` and `StandardDeviationOfY`
+  Returns the standard deviation of all values for the respective variable.
+
+* `Covariance`
+  Returns the covariance between the two variables.
+
+* `CorrelationCoefficient`
+  Returns the correlation coefficient between the two variables.
+
+* `Name`
+  Returns the name string as provided during creation of the object.
+
+* `XPod` and `YPod`
+  Returns the respective `StatisticPod` objects for the two variables. All properties of the class are thus exposed.
+
+## Notes
 
 All properties are getters only. A `double.NaN` is returned for properties which are (yet) undefined.
 
 Once instantiated, it is not possible to modify the object's name. 
-The string provided in the constructor is trimmed and if empty, a generic name is used. 
+The string provided in the constructor is trimmed and if empty, a GUID string is used. 
 
 The data set recorded during the object's life cycle is never accessible; moreover it is not even stored internally. Only the selected characteristic values are accessible through properties.
 
 The arithmetic mean and the variance are computed in a numerically stable way. For details see https://www.johndcook.com/blog/standard_deviation/ and https://diego.assencio.com/?index=c34d06f4f4de2375658ed41f70177d59
 
-### Usage
+## Usage
 
 The following code fragment of a simple program shows the use of this class.
 One could leverage `SampleSize` to escape from the loop. 
@@ -102,8 +148,8 @@ namespace spTest
                 sp.Update(v);
             }
 
-            Console.WriteLine("Sample size: {0}", sp.SampleSize);
-            Console.WriteLine("Mean value: {0}", sp.AverageValue);
+            Console.WriteLine($"Sample size: {sp.SampleSize}");
+            Console.WriteLine($"Mean value: {sp.AverageValue}");
             Console.WriteLine(sp); // ToString() is implemented also
             sp.Restart();
             // you may now reuse the object sp for a new evaluation
