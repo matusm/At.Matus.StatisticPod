@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace At.Matus.StatisticPod
 {
     public class CovariancePod
@@ -7,11 +9,11 @@ namespace At.Matus.StatisticPod
         private readonly StatisticPod yPod = new StatisticPod("y");
         private readonly StatisticPod zPod = new StatisticPod("x+y");
 
-        public CovariancePod(string name = noNameSpecified)
+        public CovariancePod(string name = "")
         {
             Name = name.Trim();
             if (string.IsNullOrEmpty(Name))
-                Name = noNameSpecified;
+                Name = Guid.NewGuid().ToString();
             Restart();
         }
 
@@ -51,7 +53,6 @@ namespace At.Matus.StatisticPod
             return $"{Name} : ({AverageValueOfX} ± {StandardDeviationOfX}, {AverageValueOfY} ± {StandardDeviationOfY}) r={CorrelationCoefficient}";
         }
 
-        private const string noNameSpecified = "<name not specified>";
         private const string noDataYet = "no data yet";
     }
 }

@@ -6,11 +6,11 @@ namespace At.Matus.StatisticPod
     public class StatisticPod
     {
 
-        public StatisticPod(string name = noNameSpecified)
+        public StatisticPod(string name = "")
         {
             Name = name.Trim();
             if (string.IsNullOrEmpty(Name))
-                Name = noNameSpecified;
+                Name = Guid.NewGuid().ToString();
             Restart();
         }
 
@@ -72,9 +72,7 @@ namespace At.Matus.StatisticPod
             return $"{Name} : {AverageValue} ± {StandardDeviation}";
         }
 
-        private const string noNameSpecified = "<name not specified>";
         private const string noDataYet = "no data yet";
-
         private double squareSum;
 
     }
