@@ -5,15 +5,18 @@ namespace At.Matus.StatisticPod
 {
     public class CovariancePod
     {
-        private readonly StatisticPod xPod = new StatisticPod("x");
-        private readonly StatisticPod yPod = new StatisticPod("y");
-        private readonly StatisticPod zPod = new StatisticPod("x+y");
+        private readonly StatisticPod xPod;
+        private readonly StatisticPod yPod;
+        private readonly StatisticPod zPod;
 
         public CovariancePod(string name = "")
         {
             Name = name.Trim();
             if (string.IsNullOrEmpty(Name))
                 Name = Guid.NewGuid().ToString();
+            xPod = new StatisticPod($"{Name}.X");
+            yPod = new StatisticPod($"{Name}.Y");
+            zPod = new StatisticPod($"{Name}.(X+Y)");
             Restart();
         }
 
